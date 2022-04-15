@@ -1,0 +1,106 @@
+{
+    "grease": {
+        "name": "Grease",
+        "base_stat": 1,
+        "lvl_multiplier": 1.1,
+        "type": "stun", 
+        "region": "ITALIAN",
+        "cost": 4,
+        "multi": 0
+    },
+    "spice_bomb": {
+        "name": "Spice Bomb",
+        "base_stat": 8,
+        "lvl_multiplier": 1.4, 
+        "type": "attack",
+        "region": "MEXICAN",
+        "cost": 4,
+        "multi": 0
+    }, 
+    "escargot_throw": {
+        "name": "Escargot Throw",
+        "base_stat": 3,
+        "lvl_multiplier": 1.8, 
+        "type": "attack",
+        "region": "FRENCH", 
+        "cost": 2,
+        "multi": 0
+    }, 
+    "mama_mia": {
+        "name": "Mama Mia",
+        "base_stat": 6,
+        "lvl_multipler": 1.4, 
+        "type": "debuff",
+        "region": "ITALIAN",
+        "cost": 3,
+        "multi": 0
+    },
+    "spicy_meatball": {
+        "name": "Spicy Meatball",
+        "base_stat": 5, 
+        "lvl_multiplier": 1.5,
+        "type": "attack", 
+        "region": "ITALIAN",
+        "cost": 2,
+        "multi": 0
+    }, 
+    "da_pope": {
+        "name": "Dinner With The Pope",
+        "base_stat": 25,
+        "lvl_multiplier": 1.3,
+        "type": "attack",
+        "region": "ITALIAN",
+        "cost": 8,
+        "multi": 0
+    },
+    "parmesan_sprinkle": {
+        "name": "Parmesan Sprinkle",
+        "base_stat": 3,
+        "lvl_multiplier": 1.4,
+        "type": "attack",
+        "region": "ITALIAN",
+        "cost": 3,
+        "multi": 1
+    },
+    "defend": {
+        "name": "Defend",
+        "base_stat": "4",
+        "lvl_multiplier": 1.3,
+        "type": "defend",
+        "region": "ALL",
+        "cost": 2,
+        "multi": 0
+    },
+    "sizzle": {
+        "name": "Sizzle",
+        "base_stat": 3,
+        "lvl_multiplier": 1.3,
+        "type": "attack",
+        "region": "ALL",
+        "cost": 3,
+        "multi": 0
+    },
+    "season": {
+        "name": "Season",
+        "base_stat": 2,
+        "lvl_multiplier": 1.3,
+        "type": "buff",
+        "buff_type": ["attack", "defense"],
+        "region": "ALL",
+        "cost": 2,
+        "multi": 0
+    },
+    "refried": {
+        "name": "Refried Beans",
+        "base_stat": 3,
+        "lvl_multiplier": 1.4,
+        "type": "defend",
+        "region": "MEXICAN",
+        "cost": 3,
+        "multi": 0
+    },
+    "ghost_pepper": {
+        "name": "Ghost Pepper",
+    }
+
+}
