@@ -1,7 +1,7 @@
 extends Node
 class_name Ability
 
-const file_path = "res://Assets/Abilities/abilities.json"
+const file_path = "res://Assets/JSON/abilities.json"
 
 signal decision(string)
 
