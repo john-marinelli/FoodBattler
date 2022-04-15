@@ -1,6 +1,8 @@
 extends Node
 class_name Ability
 
+const file_path = "res://Assets/Abilities/abilities.json"
+
 signal decision(string)
 
 enum MOVES {
@@ -21,18 +23,30 @@ var move_type = MOVES.ATTACK
 var buff_type = BUFFS.ATTACK
 var ability_name := ""
 var monster
+var cost:int
 var base_stat:int
-var lvl_multiplier:int
+var lvl_multiplier:float
 var isDebuff = false
-
+var region = ""
 func _ready():
 	pass
 	
 
-func _init(monster, ability):
+func _init(_monster, _ability):
+	monster = _monster
+	var ability = loadAbilities(_ability)
+	print(ability['lvl_multiplier'])
+	base_stat = int(ability['base_stat'])
+	cost = float(ability['cost'])
+	lvl_multiplier = ability['lvl_multiplier']
+	print(lvl_multiplier)
+	ability_name = ability['name']
+	region = ability['region']
 	
-	pass
-
+	
+func loadAbilities(ability):
+	var abilityList = Globals.loadJSON(file_path)
+	return abilityList[ability]
 func perform(_target):
 	
 	var decision_type = ""
