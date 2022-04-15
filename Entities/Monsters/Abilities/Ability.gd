@@ -18,7 +18,7 @@ enum BUFFS {
 	SPEED,
 	DEFENSE
 }
-
+var move_types = ["attack", "stun", "defend", "run", "buff", "debuff"]
 var move_type = MOVES.ATTACK
 var buff_type = BUFFS.ATTACK
 var ability_name := ""
@@ -33,15 +33,26 @@ func _ready():
 	
 
 func _init(_monster, _ability):
+	
 	monster = _monster
+	
 	var ability = loadAbilities(_ability)
-	print(ability['lvl_multiplier'])
 	base_stat = int(ability['base_stat'])
 	cost = float(ability['cost'])
 	lvl_multiplier = ability['lvl_multiplier']
-	print(lvl_multiplier)
 	ability_name = ability['name']
 	region = ability['region']
+	
+	var type = ability['type'].to_upper()
+	
+	move_type = MOVES.keys().find(type) #find index of enum
+	
+	if move_type == MOVES.BUFF or move_type == MOVES.DEBUFF:
+		print("buff found")
+	
+	match move_type:
+		MOVES.ATTACK:
+			print("hello world")
 	
 	
 func loadAbilities(ability):
