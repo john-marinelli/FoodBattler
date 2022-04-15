@@ -10,7 +10,7 @@
     },
     "spice_bomb": {
         "name": "Spice Bomb",
-        "base_stat": 8,
+        "base_stat": 4,
         "lvl_multiplier": 1.4, 
         "type": "attack",
         "region": "MEXICAN",
@@ -28,9 +28,10 @@
     }, 
     "mama_mia": {
         "name": "Mama Mia",
-        "base_stat": 6,
+        "base_stat": 4,
         "lvl_multipler": 1.4, 
         "type": "debuff",
+        "buff_type": ["defense"],
         "region": "ITALIAN",
         "cost": 3,
         "multi": 0
@@ -66,7 +67,8 @@
         "name": "Defend",
         "base_stat": "4",
         "lvl_multiplier": 1.3,
-        "type": "defend",
+        "type": "buff",
+        "buff_type": ["defense"],
         "region": "ALL",
         "cost": 2,
         "multi": 0
@@ -94,7 +96,8 @@
         "name": "Refried Beans",
         "base_stat": 3,
         "lvl_multiplier": 1.4,
-        "type": "defend",
+        "type": "buff",
+        "buff_type": ["defense"],
         "region": "MEXICAN",
         "cost": 3,
         "multi": 0
