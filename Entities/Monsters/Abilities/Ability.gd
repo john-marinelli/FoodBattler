@@ -20,7 +20,7 @@ enum BUFFS {
 }
 var move_types = ["attack", "stun", "defend", "run", "buff", "debuff"]
 var move_type = MOVES.ATTACK
-var buff_type = BUFFS.ATTACK
+var buff_types := []
 var ability_name := ""
 var monster
 var cost:int
@@ -48,11 +48,14 @@ func _init(_monster, _ability):
 	move_type = MOVES.keys().find(type) #find index of enum
 	
 	if move_type == MOVES.BUFF or move_type == MOVES.DEBUFF:
-		print("buff found")
+		var buffs = ability['buff_type']
+		for buff in buffs:
+			buff = buff.to_upper()
+			buff_types.append(BUFFS.keys().find(buff))
+		
+		
 	
-	match move_type:
-		MOVES.ATTACK:
-			print("hello world")
+
 	
 	
 func loadAbilities(ability):
@@ -73,12 +76,12 @@ func perform(_target):
 		MOVES.BUFF:
 			
 			decision_type = "buff"
-			buff(monster)
+			applyBuffs(monster)
 			
 		MOVES.DEBUFF:
 			
 			decision_type = "debuff"
-			buff(_target)
+			applyBuffs(_target)
 			
 
 		MOVES.RUN:
@@ -90,12 +93,20 @@ func perform(_target):
 			decision_value = _get_stun()
 			_target.stun = decision_value
 	emit_signal("decision", _getMoveString())
-
+func applyBuffs(_target):
 	
-func buff(_target):
+	for buff in buff_types:
+		buff(_target, buff)
+	
+	
+func buff(_target, buff_type):
+	
 	var roll = _roll()
+	
 	if isDebuff:
+		
 		roll = -roll
+		
 	match buff_type:
 		
 		BUFFS.ATTACK:

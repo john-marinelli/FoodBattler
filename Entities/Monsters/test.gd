@@ -1,6 +1,6 @@
 extends Node
 
 var ability
-
+var monster
 func _ready():
-	ability = Ability.new(null, "refried")
+	monster = Monster.new("ITALIAN", "spaghetti")

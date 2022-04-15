@@ -1,5 +1,7 @@
 {
     "ITALIAN": {
+        "resistances": ["CHINESE", "ITALIAN"],
+        "strengths": ["AMERICAN", "FRENCH"],
         "spaghetti": {
             "name": "Spaghetti",
             "base_health": 20,
@@ -9,6 +11,8 @@
         }
     },
     "MEXICAN": {
+        "resistances": ["MEXICAN", "ITALIAN"],
+        "strengths": ["AMERICAN", "FRENCH"],
         "nachos": {
             "name": "Nachos",
             "base_health": 15,
@@ -18,6 +22,8 @@
         }
     },
     "AMERICAN": {
+        "resistances": ["CHINESE", "ITALIAN"],
+        "strengths": ["AMERICAN", "FRENCH"],
         "sandwich": {
             "name": "Sandwich",
             "base_health": 18,
