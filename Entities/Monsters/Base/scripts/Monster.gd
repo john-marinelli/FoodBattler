@@ -20,12 +20,15 @@ enum STATES {
 
 var health:float
 var attack:float
+var attackMod:float
+var stun := 0
 var level:int
 var resistances := []
 var type #to store FOODTYPE
 var abilities := []
 var state = STATES.DECIDE
 var timer
+var defense = 0
 func _ready():
 	pass 
 
