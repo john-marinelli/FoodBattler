@@ -1,0 +1,29 @@
+{
+    "ITALIAN": {
+        "spaghetti": {
+            "name": "Spaghetti",
+            "base_health": 20,
+            "health_scaling": 1.4,
+            "base_moveset": ["sizzle", "season", "defend"],
+            "rarity": 3
+        }
+    },
+    "MEXICAN": {
+        "nachos": {
+            "name": "Nachos",
+            "base_health": 15,
+            "health_scaling": 1.6,
+            "base_moveset": ["spice_bomb", "season", "defend"],
+            "rarity": 6
+        }
+    },
+    "AMERICAN": {
+        "sandwich": {
+            "name": "Sandwich",
+            "base_health": 18,
+            "health_scaling": 1.5,
+            "base_moveset": ["sizzle", "season", "defend"],
+            "rarity": 3
+        }
+    }
+}
