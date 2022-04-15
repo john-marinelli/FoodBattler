@@ -15,12 +15,18 @@ _global_script_classes=[ {
 "path": "res://Entities/Monsters/Abilities/Ability.gd"
 }, {
 "base": "Node",
+"class": "Encounter",
+"language": "GDScript",
+"path": "res://BattleSystem/Encounter.gd"
+}, {
+"base": "Node",
 "class": "Monster",
 "language": "GDScript",
 "path": "res://Entities/Monsters/Base/scripts/Monster.gd"
 } ]
 _global_script_class_icons={
 "Ability": "",
+"Encounter": "",
 "Monster": ""
 }
 
