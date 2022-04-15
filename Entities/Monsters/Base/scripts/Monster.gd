@@ -3,6 +3,7 @@ class_name Monster
 signal monsterAttack(dmg)
 signal monsterDefend(res)
 
+const file_path = "res://Assets/JSON/monsters.json"
 enum FOODTYPE {
 	ITALIAN, 
 	FRENCH,
@@ -18,26 +19,50 @@ enum STATES {
 	DECIDE
 }
 
+var monster_name = ""
+var rarity:int
+
+
 var health:float
 var attack:float
 var attackMod:float
+
 var stun := 0
-var level:int
+
+var level:int = 0
+var xp = 0
+var xpToNextLvl = 100
+var hpScale:float
+
+
 var resistances := []
 var type #to store FOODTYPE
 var abilities := []
 var state = STATES.DECIDE
-var timer
 var defense = 0
 func _ready():
 	pass 
 
-func _init(_health):
-	health = _health
+func _init(ethnicity, monster_name):
+	ethnicity = loadMonster(ethnicity)
+	var monster = ethnicity[monster_name]
+	monster_name = monster["name"]
+	health = monster["base_health"]
+	hpScale = monster['health_scaling']
+	rarity = monster["rarity"]
+	var _abilities = monster['base_moveset']
+	for ability in _abilities:
+		ability = Ability.new(self, ability)
+		abilities.append(ability)
 	
-	timer = Timer.new()
-	timer.connect("timeout", self, "_timeout")
+		
 	
+
+	
+
+func loadMonster(ethnicity):
+	var monsters = Globals.loadJSON(file_path)
+	return monsters[ethnicity]
 func state_machine(_delta): #time-based
 	match STATES:
 		STATES.ATTACK:
