@@ -43,7 +43,7 @@ func _ready():
 	if player_goes_first():
 		battle_string = "You go first!"
 	emit_signal("battle_state", battle_string)
-	yield(player, "input_received")
+	yield(current_player, "input_received")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
