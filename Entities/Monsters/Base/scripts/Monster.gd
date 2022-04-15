@@ -36,6 +36,7 @@ var hpScale:float
 
 
 var resistances := []
+var strengths := []
 var type #to store FOODTYPE
 var abilities := []
 var state = STATES.DECIDE
@@ -51,11 +52,21 @@ func _init(ethnicity, monster_name):
 	hpScale = monster['health_scaling']
 	rarity = monster["rarity"]
 	var _abilities = monster['base_moveset']
+	
 	for ability in _abilities:
 		ability = Ability.new(self, ability)
 		abilities.append(ability)
-	
 		
+	var _resistances = ethnicity["resistances"]
+	var _strengths = ethnicity["strengths"]
+	
+	for resistance in _resistances:
+		resistance = resistance.to_upper()
+		print(FOODTYPE.keys().find(resistance))
+		resistances.append(FOODTYPE.keys().find(resistance))
+	for strength in _strengths:
+		strength = strength.to_upper()
+		strengths.append(FOODTYPE.keys().find(strength))
 	
 
 	
