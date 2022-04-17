@@ -1,7 +1,10 @@
 extends Node
 class_name Encounter
-signal battle_state(first)
-
+signal battle_state(string)
+signal update_ui(player, enemy)
+signal isPlayersTurn(boolean)
+signal resume()
+signal battleFinished(winner)
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -15,11 +18,19 @@ var enemy
 var player
 var current_player
 var battle_state
-
-
-func _init(_player, _enemy):
+var timer
+var isBattleFinished = false
+var turns = []
+var ui = null
+func _init(_player, _enemy, _ui):
 	enemy = _enemy
 	player = _player
+	timer = Timer.new()
+	timer.wait_time = 2.5
+	
+	ui = _ui
+	ui.player = player
+	ui.enemy = enemy
 	
 
 func player_goes_first():
@@ -37,46 +48,96 @@ func player_goes_first():
 		
 	current_player = enemy
 	
+	turns.append(enemy)
+	
 	if ((accum_player_level * randi()%dice) > (accum_enemy_level * randi()%dice)):
 		
 		current_player = player
 		
+		turns.push_front(player)
+		
 		return true
 		
+	turns.push_back(player)
+	
 	return false
 		
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
 	
 	var battle_string = "Enemy goes first!"
 	
 	if player_goes_first():
 		
 		battle_string = "You go first!"
-	
 	emit_signal("battle_state", battle_string)
+	emit_signal("update_ui", player, enemy)
+	player.connect("input_recieved", self, "process_turn")
+	enemy.connect("input_recieved", self, "process_turn")
+	yield(ui, "resume")
+	execute_turn()
 	
-	yield(current_player, "input_received")
+	
+	
 	
 
 func check_end():
-	if !areMonstersDefeated(player):
+	if areMonstersDefeated(player):
 		return player
-	if !areMonstersDefeated(enemy):
+	if areMonstersDefeated(enemy):
 		return enemy
-	return false
+	return null
 		
 
 func areMonstersDefeated(_target):
-	var check = false
+	var check = true
+	print(player)
 	for monster in _target.monsters:
+		print(monster.health)
 		if monster.health > 0:
-			check = true
+			check = false
+	print(check)
 	return check
 		
 		
+func execute_turn():
+	if !isBattleFinished:
+		current_player = turns[0]
+		##-----------------------------------------------##
+		##--------------Start decision phase------------##
+		##--------[pre-turn, turn, post-turn]-----------##
+		emit_signal("isPlayersTurn", _isPlayersTurn())
+		if !_isPlayersTurn():
+			current_player.decide()
 
+		yield(ui,"resume")
+		turns.invert()
 
+		execute_turn()
+	
+	
+func process_turn(string):
+	
+	emit_signal("battle_state", string)
+	
+	emit_signal("update_ui", player, enemy)
+	
+	var winner = check_end()
+	if winner != null:
+		emit_signal("battle_state", "The battle is over!")
+		emit_signal("battleFinished", winner)
+		isBattleFinished = true
+		return
+	
+	
+		
+		
+	emit_signal("resume")
+func _isPlayersTurn():
+	if current_player == player:
+		return true
+	return false
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

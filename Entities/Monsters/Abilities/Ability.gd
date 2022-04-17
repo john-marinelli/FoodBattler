@@ -18,6 +18,7 @@ enum BUFFS {
 	SPEED,
 	DEFENSE
 }
+var signalCreated = false
 var move_types = ["attack", "stun", "defend", "run", "buff", "debuff"]
 var move_type = MOVES.ATTACK
 var buff_types := []
@@ -31,14 +32,13 @@ var region = ""
 func _ready():
 	pass
 	
-
 func _init(_monster, _ability):
 	
 	monster = _monster
 	
 	var ability = loadAbilities(_ability)
 	base_stat = int(ability['base_stat'])
-	cost = float(ability['cost'])
+	cost = ability['cost']
 	lvl_multiplier = ability['lvl_multiplier']
 	ability_name = ability['name']
 	region = ability['region']
@@ -65,7 +65,8 @@ func perform(_target):
 	
 	var decision_type = ""
 	var decision_value = 0
-	
+	monster.defense = 0
+	print("targets defense:" ,_target.defense)
 	match move_type:
 		
 		MOVES.ATTACK:
@@ -76,7 +77,9 @@ func perform(_target):
 		MOVES.BUFF:
 			
 			decision_type = "buff"
+			_target = monster
 			applyBuffs(monster)
+			
 			
 		MOVES.DEBUFF:
 			
@@ -92,7 +95,7 @@ func perform(_target):
 			decision_type = "stun"
 			decision_value = _get_stun()
 			_target.stun = decision_value
-	emit_signal("decision", _getMoveString())
+	emit_signal("decision", _getMoveString(_target))
 func applyBuffs(_target):
 	
 	for buff in buff_types:
@@ -123,7 +126,14 @@ func buff(_target, buff_type):
 	
 func attack(target):
 	var roll = _roll() + monster.attackMod
-	target.health -= (roll-target.defense)
+	var attack = roll - target.defense
+	print(attack)
+	if target.defense >= roll:
+		attack = 0
+	print(attack)
+	target.health -= attack
+	if target.health < 0:
+		target.health = 0
 	return roll
 
 func defend(target, roll):
@@ -137,7 +147,7 @@ func _roll():
 	var dice = Globals.DICE
 	return ceil((lvl_multiplier * monster.level * base_stat) + (randi()%dice * monster.level))
 
-func _getMoveString():
-	return monster.monster_name + " performs " + ability_name + "!"
+func _getMoveString(_target):
+	return monster.monster_name + " performs " + ability_name + " on " + _target.monster_name + "!"
 	
 	

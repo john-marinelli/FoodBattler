@@ -10,9 +10,19 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node",
+"class": "AIHandler",
+"language": "GDScript",
+"path": "res://Entities/AI/AIHandler.gd"
+}, {
+"base": "Node",
 "class": "Ability",
 "language": "GDScript",
 "path": "res://Entities/Monsters/Abilities/Ability.gd"
+}, {
+"base": "Node",
+"class": "Character",
+"language": "GDScript",
+"path": "res://Entities/Character.gd"
 }, {
 "base": "Node",
 "class": "Encounter",
@@ -23,11 +33,19 @@ _global_script_classes=[ {
 "class": "Monster",
 "language": "GDScript",
 "path": "res://Entities/Monsters/Base/scripts/Monster.gd"
+}, {
+"base": "Node",
+"class": "RandomEncounter",
+"language": "GDScript",
+"path": "res://Entities/AI/RandomEncounter.gd"
 } ]
 _global_script_class_icons={
+"AIHandler": "",
 "Ability": "",
+"Character": "",
 "Encounter": "",
-"Monster": ""
+"Monster": "",
+"RandomEncounter": ""
 }
 
 [application]

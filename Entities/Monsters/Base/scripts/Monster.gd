@@ -1,7 +1,6 @@
 extends Node
 class_name Monster
-signal monsterAttack(dmg)
-signal monsterDefend(res)
+
 
 const file_path = "res://Assets/JSON/monsters.json"
 enum FOODTYPE {
@@ -22,7 +21,7 @@ enum STATES {
 var monster_name = ""
 var rarity:int
 
-
+var max_health:float
 var health:float
 var attack:float
 var attackMod:float
@@ -34,6 +33,7 @@ var xp = 0
 var xpToNextLvl = 100
 var hpScale:float
 
+var affinityDict = {} #contains stuns, poisons {abilityObj: turnLength}
 
 var resistances := []
 var strengths := []
@@ -44,12 +44,14 @@ var defense = 0
 func _ready():
 	pass 
 
-func _init(ethnicity, monster_name):
-	ethnicity = loadMonster(ethnicity)
-	var monster = ethnicity[monster_name]
+func _init(_monster_name, _level = 1):
+	var ethnicity = loadMonster(_monster_name)
+	var monster = ethnicity[_monster_name]
 	monster_name = monster["name"]
-	health = monster["base_health"]
+	level = _level
 	hpScale = monster['health_scaling']
+	health = monster["base_health"] + (hpScale * _level)
+	max_health = health
 	rarity = monster["rarity"]
 	var _abilities = monster['base_moveset']
 	
@@ -68,12 +70,32 @@ func _init(ethnicity, monster_name):
 		strength = strength.to_upper()
 		strengths.append(FOODTYPE.keys().find(strength))
 	
-
+func getPreturn(): #affinity object has stun or poison, and shows a string
+	var affinities = []
+	if affinityDict.size() > 0:
+		for affinity in affinityDict.keys():
+			affinityDict[affinity] -= 1
+			affinities.append(affinity)
+			if affinityDict[affinity] == 0:
+				affinityDict.erase(affinity)
+			
+	return affinities
+		
+		
+	
+	
+func resetTurn():
+	defense = 0
 	
 
-func loadMonster(ethnicity):
+func loadMonster(_monster_name):
 	var monsters = Globals.loadJSON(file_path)
-	return monsters[ethnicity]
+	for key in monsters.keys():
+		if monsters[key].has(_monster_name):
+			return monsters[key]
+	print("error!")
+	return
+	
 func state_machine(_delta): #time-based
 	match STATES:
 		STATES.ATTACK:

@@ -2,5 +2,6 @@ extends Node
 
 var ability
 var monster
+var player
 func _ready():
-	monster = Monster.new("ITALIAN", "spaghetti")
+	player = Character.new(['nachos', 'sandwich'])

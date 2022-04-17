@@ -1,6 +1,6 @@
 extends Node
 
-const DICE = 6
+const DICE = 4
 
 func _ready():
 	pass 
