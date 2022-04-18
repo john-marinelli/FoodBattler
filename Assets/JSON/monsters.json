@@ -7,7 +7,8 @@
             "base_health": 20,
             "health_scaling": 1.4,
             "base_moveset": ["sizzle", "season", "defend"],
-            "rarity": 3
+            "rarity": 3,
+            "icon": "Assets/Foods/94_spaghetti.png"
         }
     },
     "MEXICAN": {
@@ -17,8 +18,10 @@
             "name": "Nachos",
             "base_health": 15,
             "health_scaling": 1.6,
-            "base_moveset": ["spice_bomb", "season", "defend"],
-            "rarity": 6
+            "base_moveset": ["spice_bomb", "season", "defend", "grease"],
+            "rarity": 6,
+            "icon": "Assets/Foods/71_nacho.png"
+
         }
     },
     "AMERICAN": {
@@ -29,7 +32,8 @@
             "base_health": 18,
             "health_scaling": 1.5,
             "base_moveset": ["sizzle", "season", "defend"],
-            "rarity": 3
+            "rarity": 3,
+            "icon": "Assets/Foods/92_sandwich.png"
         }
     }
 }

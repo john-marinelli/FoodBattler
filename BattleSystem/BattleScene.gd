@@ -13,13 +13,23 @@ onready var enemyInfo = get_node("battleWindow/battleUI/monsterInfoContainer/ene
 onready var playerInfo = get_node("battleWindow/battleUI/monsterInfoContainer/playerInfo")
 onready var actionGrid = actionMenuContainer.get_node("optionGrid")
 onready var tween = get_node("Tween")
+onready var enemySprite = get_node("battleWindow/enemy/Sprite")
+onready var playerSprite = get_node("battleWindow/player/Sprite")
 func _ready():
 	pass
+	
+func loadSprites():
+	var enemyMonster = enemy.currentMonster
+	var playerMonster = player.currentMonster
+	enemySprite.texture = load(enemyMonster.sprite)
+	playerSprite.texture = load(playerMonster.sprite)
 
 func _process(_delta):
 	if awaitTextContinue:
 		if Input.is_action_just_pressed("ui_accept"):
 			emit_signal("resume")
+			actionMenu.infoText.percent_visible = 0
+			awaitTextContinue = false
 			
 
 func showBattleText(string):
@@ -41,18 +51,38 @@ func updateUI(player, enemy):
 
 func updateInfoBox(_target, infoBox):
 	var monster = _target.currentMonster
-	var monster_name = infoBox.get_node("VBoxContainer/Name")
+	var monster_name = infoBox.get_node("VBoxContainer/nameContainer/Name")
+	var monsterBuffContainer = infoBox.get_node("VBoxContainer/nameContainer/buffContainer")
 	var monster_hp_val = infoBox.get_node("VBoxContainer/HBoxContainer/hpValue")
 	var monster_hp_prog = infoBox.get_node("VBoxContainer/HBoxContainer/hpProg")
 	var monster_mp_val = infoBox.get_node("VBoxContainer/HBoxContainer2/mpValue")
 	var monster_mp_prog = infoBox.get_node("VBoxContainer/HBoxContainer2/mpProg")
+	getBuffsUI(monster, monsterBuffContainer)
 	monster_name.text = monster.monster_name
 	monster_hp_val.text = str(ceil(monster.health)) + "/" + str(ceil(monster.max_health))
 	monster_hp_prog.max_value = 100
 	tween.interpolate_property(monster_hp_prog, "value", monster_hp_prog.value,float(monster.health/float(monster.max_health)) * 100.0,
 	0.3,Tween.TRANS_CUBIC )
 	tween.start()
+func getBuffsUI(monster, container):
+	for child in container.get_children():
+		child.queue_free()
+	var damageIcon = load("res://Assets/UI/atIcon.png")
+	var dfIcon = load("res://Assets/UI/dfIcon.png")
 	
+	var buffDict = monster.getBuffsString()
+	for buff in buffDict:
+		var buffIcon = load("res://Assets/UI/uiBuff.tscn").instance()
+		match buff:
+			"defense":
+				buffIcon.texture = dfIcon
+			"attack":
+				buffIcon.texture = damageIcon
+		buffIcon.get_node("Label").text = str(buffDict[buff])
+		container.add_child(buffIcon)
+		
+	
+		
 func goto_mainActionMenu():
 	
 	var actionItems = ["Fight", "Bag", "Foods", "Run"]
@@ -70,7 +100,6 @@ func goto_mainActionMenu():
 func onActionItemPressed(string):
 	
 	
-	print(string)
 
 	match string:
 		"Fight":

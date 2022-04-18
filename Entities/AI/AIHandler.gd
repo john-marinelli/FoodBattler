@@ -18,7 +18,6 @@ func _init(_monsters, _target):
 	currentMonster = _monsters[0]
 	target = _target
 	loadMonster(currentMonster)
-	print(currentMonster)
 
 func loadMonster(monster):
 	for ability in monster.abilities:
@@ -31,5 +30,4 @@ func decide():
 	ability.perform(monsterTarget)
 
 func decisionMade(decision_string):
-	print(decision_string)
 	emit_signal("input_recieved", decision_string)

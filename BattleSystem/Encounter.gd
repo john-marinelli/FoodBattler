@@ -75,6 +75,7 @@ func _ready():
 	emit_signal("update_ui", player, enemy)
 	player.connect("input_recieved", self, "process_turn")
 	enemy.connect("input_recieved", self, "process_turn")
+	ui.loadSprites()
 	yield(ui, "resume")
 	execute_turn()
 	
@@ -92,12 +93,9 @@ func check_end():
 
 func areMonstersDefeated(_target):
 	var check = true
-	print(player)
 	for monster in _target.monsters:
-		print(monster.health)
 		if monster.health > 0:
 			check = false
-	print(check)
 	return check
 		
 		
@@ -107,6 +105,15 @@ func execute_turn():
 		##-----------------------------------------------##
 		##--------------Start decision phase------------##
 		##--------[pre-turn, turn, post-turn]-----------##
+		current_player.currentMonster.getPreturn()
+		if current_player.currentMonster.isStunned():
+			emit_signal("battle_state", current_player.currentMonster.monster_name + " is stunned!" )
+			yield(ui, "resume")
+			turns.invert()
+			execute_turn()
+			return
+			
+		
 		emit_signal("isPlayersTurn", _isPlayersTurn())
 		if !_isPlayersTurn():
 			current_player.decide()

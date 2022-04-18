@@ -17,7 +17,7 @@ enum STATES {
 	ESCAPE,
 	DECIDE
 }
-
+var sprite = ""
 var monster_name = ""
 var rarity:int
 
@@ -25,7 +25,7 @@ var max_health:float
 var health:float
 var attack:float
 var attackMod:float
-
+var defense = 0
 var stun := 0
 
 var level:int = 0
@@ -33,14 +33,14 @@ var xp = 0
 var xpToNextLvl = 100
 var hpScale:float
 
-var affinityDict = {} #contains stuns, poisons {abilityObj: turnLength}
+var currentBuffs = {} #contains stuns, poisons {abilityObj: turnLength}
 
 var resistances := []
 var strengths := []
 var type #to store FOODTYPE
 var abilities := []
 var state = STATES.DECIDE
-var defense = 0
+
 func _ready():
 	pass 
 
@@ -53,7 +53,9 @@ func _init(_monster_name, _level = 1):
 	health = monster["base_health"] + (hpScale * _level)
 	max_health = health
 	rarity = monster["rarity"]
+	sprite = "res://" + monster["icon"]
 	var _abilities = monster['base_moveset']
+	
 	
 	for ability in _abilities:
 		ability = Ability.new(self, ability)
@@ -64,24 +66,37 @@ func _init(_monster_name, _level = 1):
 	
 	for resistance in _resistances:
 		resistance = resistance.to_upper()
-		print(FOODTYPE.keys().find(resistance))
 		resistances.append(FOODTYPE.keys().find(resistance))
 	for strength in _strengths:
 		strength = strength.to_upper()
 		strengths.append(FOODTYPE.keys().find(strength))
-	
+func getBuffsString():
+	var dict = {}
+	for buff in currentBuffs.keys():
+		for buffString in buff.buffTypesString:
+			if !dict.has(buffString):
+				dict[buffString] = 0
+			dict[buffString] += 1
+	return dict
+		
+		
 func getPreturn(): #affinity object has stun or poison, and shows a string
-	var affinities = []
-	if affinityDict.size() > 0:
-		for affinity in affinityDict.keys():
-			affinityDict[affinity] -= 1
-			affinities.append(affinity)
-			if affinityDict[affinity] == 0:
-				affinityDict.erase(affinity)
-			
-	return affinities
-		
-		
+	var buffs = []
+	defense = 0
+	attackMod = 0
+	if currentBuffs.size() > 0:
+		for buff in currentBuffs.keys():
+			currentBuffs[buff] -= 1
+			buffs.append(buff)
+			if currentBuffs[buff] == 0:
+				currentBuffs.erase(buff)
+			buff.applyBuffs(self)
+func isStunned():
+	if stun > 0:
+		stun -= 1
+		return true
+	return false
+	
 	
 	
 func resetTurn():

@@ -14,8 +14,6 @@ func add_monster(monster):
 	monsters.append(monster)
 
 func decide(ability_string):
-	var decision
 	#TODO receive signals from UI here
-	print(ability_string)
 	emit_signal("input_recieved", ability_string)
 	pass

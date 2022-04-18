@@ -6,8 +6,7 @@
         "type": "stun", 
         "region": "ITALIAN",
         "cost": 4,
-        "multi": 0,
-        "turn_length": 1
+        "multi": 0
     },
     "spice_bomb": {
         "name": "Spice Bomb",
@@ -36,7 +35,8 @@
         "region": "ITALIAN",
         "cost": 3,
         "multi": 0,
-        "turn_length": 1
+        "turn_length": 1,
+        "text": "%s is feeling weak!"
     },
     "spicy_meatball": {
         "name": "Spicy Meatball",
@@ -74,7 +74,8 @@
         "region": "ALL",
         "cost": 2,
         "multi": 0,
-        "turn_length": 1
+        "turn_length": 1,
+        "text": "%s is feeling strong!"
     },
     "sizzle": {
         "name": "Sizzle",
@@ -94,7 +95,8 @@
         "region": "ALL",
         "cost": 2,
         "multi": 0,
-        "turn_length": 1
+        "turn_length": 1,
+        "text": "%s is feeling mighty!"
     },
     "refried": {
         "name": "Refried Beans",
@@ -105,7 +107,8 @@
         "region": "MEXICAN",
         "cost": 3,
         "multi": 0,
-        "turn_length": 1
+        "turn_length": 1,
+        "text": "%s is feeling strong!"
     },
     "ghost_pepper": {
         "name": "Ghost Pepper"

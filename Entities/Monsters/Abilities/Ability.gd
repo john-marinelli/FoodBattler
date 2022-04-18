@@ -22,6 +22,7 @@ var signalCreated = false
 var move_types = ["attack", "stun", "defend", "run", "buff", "debuff"]
 var move_type = MOVES.ATTACK
 var buff_types := []
+var buffTypesString = []
 var ability_name := ""
 var monster
 var cost:int
@@ -29,6 +30,8 @@ var base_stat:int
 var lvl_multiplier:float
 var isDebuff = false
 var region = ""
+var turn_length= 0
+var abilityText = ""
 func _ready():
 	pass
 	
@@ -49,9 +52,12 @@ func _init(_monster, _ability):
 	
 	if move_type == MOVES.BUFF or move_type == MOVES.DEBUFF:
 		var buffs = ability['buff_type']
+		buffTypesString = ability['buff_type']
 		for buff in buffs:
 			buff = buff.to_upper()
 			buff_types.append(BUFFS.keys().find(buff))
+		turn_length = ability['turn_length']
+		abilityText = ability['text']
 		
 		
 	
@@ -62,11 +68,8 @@ func loadAbilities(ability):
 	var abilityList = Globals.loadJSON(file_path)
 	return abilityList[ability]
 func perform(_target):
-	
 	var decision_type = ""
 	var decision_value = 0
-	monster.defense = 0
-	print("targets defense:" ,_target.defense)
 	match move_type:
 		
 		MOVES.ATTACK:
@@ -79,12 +82,14 @@ func perform(_target):
 			decision_type = "buff"
 			_target = monster
 			applyBuffs(monster)
+			monster.currentBuffs[self] = turn_length
 			
 			
 		MOVES.DEBUFF:
 			
 			decision_type = "debuff"
 			applyBuffs(_target)
+			_target.currentBuffs[self] = turn_length
 			
 
 		MOVES.RUN:
@@ -127,10 +132,8 @@ func buff(_target, buff_type):
 func attack(target):
 	var roll = _roll() + monster.attackMod
 	var attack = roll - target.defense
-	print(attack)
 	if target.defense >= roll:
 		attack = 0
-	print(attack)
 	target.health -= attack
 	if target.health < 0:
 		target.health = 0
@@ -150,4 +153,4 @@ func _roll():
 func _getMoveString(_target):
 	return monster.monster_name + " performs " + ability_name + " on " + _target.monster_name + "!"
 	
-	
+		
