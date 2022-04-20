@@ -82,7 +82,7 @@ func perform(_target):
 			decision_type = "buff"
 			_target = monster
 			applyBuffs(monster)
-			monster.currentBuffs[self] = turn_length
+			monster.currentBuffs[self] = turn_length - 1 # remove one turn // turn is already applied
 			
 			
 		MOVES.DEBUFF:

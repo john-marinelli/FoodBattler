@@ -95,7 +95,7 @@
         "region": "ALL",
         "cost": 2,
         "multi": 0,
-        "turn_length": 1,
+        "turn_length": 3,
         "text": "%s is feeling mighty!"
     },
     "refried": {

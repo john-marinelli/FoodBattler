@@ -84,9 +84,9 @@ func _ready():
 	
 
 func check_end():
-	if areMonstersDefeated(player):
-		return player
 	if areMonstersDefeated(enemy):
+		return player
+	if areMonstersDefeated(player):
 		return enemy
 	return null
 		
@@ -113,7 +113,6 @@ func execute_turn():
 			execute_turn()
 			return
 			
-		
 		emit_signal("isPlayersTurn", _isPlayersTurn())
 		if !_isPlayersTurn():
 			current_player.decide()
@@ -133,6 +132,7 @@ func process_turn(string):
 	var winner = check_end()
 	if winner != null:
 		emit_signal("battle_state", "The battle is over!")
+		emit_signal("battle_state", winner.currentMonster.monster_name + " is the winner!")
 		emit_signal("battleFinished", winner)
 		isBattleFinished = true
 		return

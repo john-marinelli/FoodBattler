@@ -86,11 +86,13 @@ func getPreturn(): #affinity object has stun or poison, and shows a string
 	attackMod = 0
 	if currentBuffs.size() > 0:
 		for buff in currentBuffs.keys():
-			currentBuffs[buff] -= 1
-			buffs.append(buff)
 			if currentBuffs[buff] == 0:
 				currentBuffs.erase(buff)
-			buff.applyBuffs(self)
+			else:
+				currentBuffs[buff] -= 1
+				buffs.append(buff)
+
+				buff.applyBuffs(self)
 func isStunned():
 	if stun > 0:
 		stun -= 1

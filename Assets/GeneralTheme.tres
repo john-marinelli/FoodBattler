@@ -1,42 +1,47 @@
-[gd_resource type="Theme" load_steps=12 format=2]
+[gd_resource type="Theme" load_steps=15 format=2]
 
 [ext_resource path="res://Assets/Fonts/Peaberry-Font-v2.0/Peaberry Font Family/Peaberry Monospace/PeaberryMono.woff" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/UI/panel1.png" type="Texture" id=2]
-[ext_resource path="res://Assets/UI/panel2.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/btn3.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/btn2.png" type="Texture" id=4]
+[ext_resource path="res://Assets/UI/btn1.png" type="Texture" id=5]
+[ext_resource path="res://Assets/UI/panelContainer.png" type="Texture" id=6]
 
 [sub_resource type="StyleBoxTexture" id=4]
 
 [sub_resource type="StyleBoxTexture" id=8]
-texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 32, 32 )
-margin_left = 3.0
-margin_right = 3.0
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 1, 64, 15 )
+margin_left = 2.0
+margin_right = 2.0
 margin_top = 3.0
-margin_bottom = 3.0
-modulate_color = Color( 0, 0, 0, 0.309804 )
+margin_bottom = 2.0
 draw_center = false
 
 [sub_resource type="StyleBoxTexture" id=5]
-texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 32, 32 )
-margin_left = 3.0
-margin_right = 3.0
-margin_top = 5.0
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 64, 16 )
+margin_left = 2.0
+margin_right = 2.0
+margin_top = 3.0
 margin_bottom = 4.0
-draw_center = false
 
 [sub_resource type="StyleBoxTexture" id=6]
-texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 32, 32 )
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 64, 16 )
 margin_left = 3.0
 margin_right = 3.0
 margin_top = 5.0
 margin_bottom = 4.0
 
 [sub_resource type="StyleBoxTexture" id=7]
-texture = ExtResource( 3 )
-region_rect = Rect2( 0, 0, 32, 32 )
-modulate_color = Color( 0.470588, 0.443137, 0.443137, 1 )
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 64, 16 )
+margin_left = 2.0
+margin_right = 2.0
+margin_top = 4.0
+margin_bottom = 3.0
+expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=1]
 content_margin_left = 4.0
@@ -51,23 +56,13 @@ margin_top = 5.0
 margin_bottom = 4.0
 modulate_color = Color( 0.945098, 0.960784, 0.960784, 1 )
 
-[sub_resource type="StyleBoxFlat" id=3]
-content_margin_left = 4.0
-content_margin_right = 4.0
-content_margin_top = 4.0
-content_margin_bottom = 4.0
-bg_color = Color( 0.847656, 0.847656, 0.847656, 1 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color( 0.0392157, 0.00392157, 0.00392157, 1 )
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
-corner_detail = 3
-anti_aliasing = false
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 32, 32 )
+margin_left = 2.0
+margin_right = 2.0
+margin_top = 3.0
+margin_bottom = 4.0
 
 [sub_resource type="DynamicFont" id=2]
 size = 8
@@ -87,4 +82,4 @@ Button/styles/normal = SubResource( 6 )
 Button/styles/pressed = SubResource( 7 )
 Label/colors/font_color = Color( 0, 0, 0, 1 )
 Panel/styles/panel = SubResource( 1 )
-PanelContainer/styles/panel = SubResource( 3 )
+PanelContainer/styles/panel = SubResource( 9 )

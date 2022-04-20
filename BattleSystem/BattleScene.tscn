@@ -353,16 +353,16 @@ size_flags_vertical = 3
 script = ExtResource( 8 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="battleWindow/battleUI/actionMenuContainer/actionMenu"]
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 300.0
+margin_left = 2.0
+margin_top = 3.0
+margin_right = 302.0
 margin_bottom = 52.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="InfoText" type="Label" parent="battleWindow/battleUI/actionMenuContainer/actionMenu/HBoxContainer"]
-margin_right = 296.0
-margin_bottom = 48.0
+margin_right = 148.0
+margin_bottom = 49.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/normal = SubResource( 6 )
@@ -379,50 +379,50 @@ speed_scale = 0.6
 playing = true
 
 [node name="menuContainer" type="PanelContainer" parent="battleWindow/battleUI/actionMenuContainer/actionMenu/HBoxContainer"]
-visible = false
-margin_left = 150.0
-margin_right = 296.0
-margin_bottom = 48.0
+self_modulate = Color( 1, 1, 1, 0 )
+margin_left = 152.0
+margin_right = 300.0
+margin_bottom = 49.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="optionGrid" type="GridContainer" parent="battleWindow/battleUI/actionMenuContainer/actionMenu/HBoxContainer/menuContainer"]
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 142.0
-margin_bottom = 44.0
+margin_left = 2.0
+margin_top = 3.0
+margin_right = 146.0
+margin_bottom = 45.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 
 [node name="Button" type="Button" parent="battleWindow/battleUI/actionMenuContainer/actionMenu/HBoxContainer/menuContainer/optionGrid"]
-margin_right = 67.0
-margin_bottom = 18.0
+margin_right = 70.0
+margin_bottom = 19.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Fight"
 
 [node name="Button2" type="Button" parent="battleWindow/battleUI/actionMenuContainer/actionMenu/HBoxContainer/menuContainer/optionGrid"]
-margin_left = 71.0
-margin_right = 138.0
-margin_bottom = 18.0
+margin_left = 74.0
+margin_right = 144.0
+margin_bottom = 19.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Bag"
 
 [node name="Button3" type="Button" parent="battleWindow/battleUI/actionMenuContainer/actionMenu/HBoxContainer/menuContainer/optionGrid"]
-margin_top = 22.0
-margin_right = 67.0
-margin_bottom = 40.0
+margin_top = 23.0
+margin_right = 70.0
+margin_bottom = 42.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Foods"
 
 [node name="Button4" type="Button" parent="battleWindow/battleUI/actionMenuContainer/actionMenu/HBoxContainer/menuContainer/optionGrid"]
-margin_left = 71.0
-margin_top = 22.0
-margin_right = 138.0
-margin_bottom = 40.0
+margin_left = 74.0
+margin_top = 23.0
+margin_right = 144.0
+margin_bottom = 42.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Run"

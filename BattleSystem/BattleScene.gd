@@ -5,7 +5,7 @@ signal textResume()
 var awaitTextContinue = false
 var player = null
 var enemy = null
-
+var messages = []
 onready var textInfo = get_node("battleWindow/battleUI/actionMenuContainer/actionMenu/HBoxContainer/InfoText")
 onready var actionMenuContainer = get_node("battleWindow/battleUI/actionMenuContainer/actionMenu/HBoxContainer/menuContainer")
 onready var actionMenu = get_node("battleWindow/battleUI/actionMenuContainer/actionMenu")
@@ -27,17 +27,28 @@ func loadSprites():
 func _process(_delta):
 	if awaitTextContinue:
 		if Input.is_action_just_pressed("ui_accept"):
-			emit_signal("resume")
 			actionMenu.infoText.percent_visible = 0
 			awaitTextContinue = false
+			messages.remove(0)
+			print(messages.size())
+			if messages.size() == 0:
+				
+				emit_signal("resume")
+			else:
+				actionMenu.showText(messages[0])
+				yield(actionMenu,"textShown")
+				awaitTextContinue = true
+
+
 			
 
 func showBattleText(string):
-	
-	actionMenu.showText(string)
+	messages.append(string)
+	actionMenu.showText(messages[0])
 	yield(actionMenu,"textShown")
 	awaitTextContinue = true
-	
+
+
 func isPlayersTurn(boolean):
 	if boolean:
 		actionMenu.showText("What will you do?")
@@ -50,6 +61,7 @@ func updateUI(player, enemy):
 	updateInfoBox(enemy, enemyInfo)
 
 func updateInfoBox(_target, infoBox):
+	
 	var monster = _target.currentMonster
 	var monster_name = infoBox.get_node("VBoxContainer/nameContainer/Name")
 	var monsterBuffContainer = infoBox.get_node("VBoxContainer/nameContainer/buffContainer")
@@ -64,6 +76,8 @@ func updateInfoBox(_target, infoBox):
 	tween.interpolate_property(monster_hp_prog, "value", monster_hp_prog.value,float(monster.health/float(monster.max_health)) * 100.0,
 	0.3,Tween.TRANS_CUBIC )
 	tween.start()
+	
+
 func getBuffsUI(monster, container):
 	for child in container.get_children():
 		child.queue_free()
